@@ -19,6 +19,10 @@ export const ContainerAcss = styled.div`
     flex-direction: column;
   }
 `
+export const Perros = styled.p`
+  color: #f50000;
+  margin: 5px;
+`
 
 export const ContainerItens = styled.div`
   background: #000000;
@@ -50,7 +54,7 @@ export const Input = styled.input`
   height: 29px;
   border-radius: 4px;
   padding-left: 7px;
-  border: none;
+  border: ${props => (props.error ? '2px solid #f50000' : 'none')};
   outline: none;
 `
 

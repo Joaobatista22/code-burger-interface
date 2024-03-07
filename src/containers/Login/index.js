@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import BurgerLogo from '../../assets/Login-Hamburguer.svg' // Renomeie o import para evitar conflito de nomes
 import Logo from '../../assets/Login-Text.svg'
@@ -8,6 +10,7 @@ import {
   LoginImage, // Renomeie o componente para evitar conflito de nomes
   ContainerItens,
   P,
+  Perros,
   Input,
   Button,
   ContainerAcss,
@@ -15,8 +18,25 @@ import {
 } from './styles'
 
 function Login() {
-  const { register, handleSubmit } = useForm()
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email('Digite um e-mail válido!')
+      .required('E-mail obrigatório!'),
+    password: yup
+      .string()
+      .required('Senha obrigatória!')
+      .min(6, 'A senha deve conter 6 digitos!')
+  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  })
   const onSubmit = data => console.log(data)
+
   return (
     <Container>
       <LoginImage src={BurgerLogo} alt="Burger Logo" />
@@ -24,11 +44,21 @@ function Login() {
         <img src={Logo} alt="img logo" />
         <h1>Login</h1>
         <ContainerAcss>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <P>Email</P>
-            <Input type="email" {...register('email')} />
+            <Input
+              type="email"
+              {...register('email')}
+              error={errors.email?.message}
+            />
+            <Perros>{errors.email?.message}</Perros>
             <P>Senha</P>
-            <Input type="password" {...register('password')} />
+            <Input
+              type="password"
+              {...register('password')}
+              error={errors.password?.message}
+            />
+            <Perros>{errors.password?.message}</Perros>
             <Button type="submit">Entrar</Button>
           </form>
           <SignInLink>
