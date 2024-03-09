@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import Button from '../../components/Button'
+import api from '../../services/api'
 import BurgerLogo from '../../assets/Login-Hamburguer.svg' // Renomeie o import para evitar conflito de nomes
 import Logo from '../../assets/Login-Text.svg'
 import {
@@ -12,7 +14,6 @@ import {
   P,
   Perros,
   Input,
-  Button,
   ContainerAcss,
   SignInLink
 } from './styles'
@@ -35,7 +36,13 @@ function Login() {
   } = useForm({
     resolver: yupResolver(schema)
   })
-  const onSubmit = data => console.log(data)
+  const onSubmit = async clientData => {
+    const response = await api.post('sessions', {
+      email: clientData.email,
+      password: clientData.password
+    })
+    console.log(response)
+  }
 
   return (
     <Container>
@@ -59,7 +66,9 @@ function Login() {
               error={errors.password?.message}
             />
             <Perros>{errors.password?.message}</Perros>
-            <Button type="submit">Entrar</Button>
+            <Button type="submit" style={{ marginTop: 10 }}>
+              Entrar
+            </Button>
           </form>
           <SignInLink>
             Não possui conta?
