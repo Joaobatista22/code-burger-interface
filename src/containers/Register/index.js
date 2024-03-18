@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 
 import Button from '../../components/Button'
 import api from '../../services/api'
@@ -43,12 +44,28 @@ function Register() {
     resolver: yupResolver(schema)
   })
   const onSubmit = async clientData => {
-    const response = await api.post('users', {
-      name: clientData.name,
-      email: clientData.email,
-      password: clientData.password
-    })
-    console.log(response)
+    try {
+      const { status } = await api.post(
+        'users',
+        {
+          name: clientData.name,
+          email: clientData.email,
+          password: clientData.password
+        },
+        {
+          validateStatus: () => true
+        }
+      )
+      if (status === 201 || status === 200) {
+        toast.success('Cadrastro criado com sucesso!')
+      } else if (status === 409) {
+        toast.error(`Email já cadastrado`)
+      } else {
+        throw new Error()
+      }
+    } catch (error) {
+      toast.error('Erro no sistema, tente novamente!')
+    }
   }
 
   return (
