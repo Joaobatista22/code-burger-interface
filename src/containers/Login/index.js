@@ -4,13 +4,14 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 
-import Button from '../../components/Button'
+import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
-import BurgerLogo from '../../assets/Login-Hamburguer.svg' // Renomeie o import para evitar conflito de nomes
+import BurgerLogo from '../../assets/Login-Hamburguer.svg'
 import Logo from '../../assets/Login-Text.svg'
+import Button from '../../components/Button'
 import {
   Container,
-  LoginImage, // Renomeie o componente para evitar conflito de nomes
+  LoginImage,
   ContainerItens,
   P,
   Perros,
@@ -20,6 +21,8 @@ import {
 } from './styles'
 
 function Login() {
+  const { putUserData, userData } = useUser()
+
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -28,8 +31,9 @@ function Login() {
     password: yup
       .string()
       .required('Senha obrigatória!')
-      .min(6, 'A senha deve conter 6 digitos!')
+      .min(6, 'A senha deve conter no mínimo 6 caracteres!')
   })
+
   const {
     register,
     handleSubmit,
@@ -37,20 +41,22 @@ function Login() {
   } = useForm({
     resolver: yupResolver(schema)
   })
+
   const onSubmit = async clientData => {
-    const response = await toast.promise(
-      api.post('sessions', {
+    try {
+      const { data } = await api.post('sessions', {
         email: clientData.email,
         password: clientData.password
-      }),
-      {
-        pending: 'Verificando dados...',
-        success: 'Bem-vindo(a)!',
-        error: 'Verifique seu E-mail e senha.'
-      }
-    )
+      })
 
-    console.log(response)
+      putUserData(data)
+      console.log(userData)
+      toast.success('Login realizado com sucesso!')
+      // Redireciona para a página principal do site após o login ser bem sucedido
+    } catch (error) {
+      toast.error('Erro no login, verifique seus dados!')
+      console.error('Erro ao fazer login:', error)
+    }
   }
 
   return (
@@ -67,14 +73,14 @@ function Login() {
               {...register('email')}
               error={errors.email?.message}
             />
-            <Perros>{errors.email?.message}</Perros>
+            {errors.email && <Perros>{errors.email.message}</Perros>}
             <P>Senha</P>
             <Input
               type="password"
               {...register('password')}
               error={errors.password?.message}
             />
-            <Perros>{errors.password?.message}</Perros>
+            {errors.password && <Perros>{errors.password.message}</Perros>}
             <Button type="submit" style={{ marginTop: 10 }}>
               Entrar
             </Button>
@@ -88,4 +94,5 @@ function Login() {
     </Container>
   )
 }
+
 export default Login

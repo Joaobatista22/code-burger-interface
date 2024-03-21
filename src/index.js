@@ -1,15 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client' // Importe createRoot corretamente
 import { ToastContainer } from 'react-toastify'
 
-// import Login from './containers/Login'
-import Register from './containers/Register'
+import Login from './containers/Login'
 import GlobalStyles from './styles/globalStyles'
+import { UserProvider } from './hooks/UserContext'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = createRoot(document.getElementById('root')) // Use createRoot corretamente
+
 root.render(
   <>
-    <Register />
+    <UserProvider>
+      <Login />
+    </UserProvider>
+
     <ToastContainer autoClose={3000} />
     <GlobalStyles />
   </>
