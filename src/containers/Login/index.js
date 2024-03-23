@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
@@ -21,7 +22,7 @@ import {
 } from './styles'
 
 function Login() {
-  const { putUserData, userData } = useUser()
+  const { putUserData } = useUser()
 
   const schema = yup.object().shape({
     email: yup
@@ -50,7 +51,6 @@ function Login() {
       })
 
       putUserData(data)
-      console.log(userData)
       toast.success('Login realizado com sucesso!')
       // Redireciona para a página principal do site após o login ser bem sucedido
     } catch (error) {
@@ -86,8 +86,13 @@ function Login() {
             </Button>
           </form>
           <SignInLink>
-            Não possui conta?
-            <a href="/cadastro"> Cadastrar-se</a>
+            Não possui conta?{' '}
+            <Link
+              style={{ textDecoration: 'none', color: '#AD0EC2' }}
+              to="/register"
+            >
+              Cadastrar-se
+            </Link>
           </SignInLink>
         </ContainerAcss>
       </ContainerItens>

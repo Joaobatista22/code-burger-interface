@@ -48,10 +48,12 @@ export const ContainerItens = styled.div`
 export const P = styled.p`
   color: white;
   font-size: 18px;
+  margin-top: 8px;
 `
 
 export const Input = styled.input`
   height: 29px;
+  margin-bottom: 10px;
   border-radius: 4px;
   padding-left: 7px;
   border: ${props => (props.error ? '2px solid #f50000' : 'none')};
