@@ -1,21 +1,24 @@
-// Importações necessárias
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
-// Componentes para as rotas
-import Login from '../containers/Login'
+import Home from '../containers/Home'
 import Register from '../containers/Register'
+import Login from '../containers/Login'
+import PrivateRoutes from './private-route'
 
-// Componente principal
 function App() {
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route element={<Login />} path="/login" />
+        <Route element={<Register />} path="/cadastro" />
+
+        <Route element={<PrivateRoutes />}>
+          <Route element={<Home />} path="/" />
+        </Route>
+
+        <Route element={<PrivateRoutes isAdmin />}></Route>
+      </Routes>
     </Router>
   )
 }
