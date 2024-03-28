@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Navigate, Route } from 'react-router-dom'
+import { Outlet, Navigate } from 'react-router-dom'
 
-function PrivateRoute({ component: Component, isAdmin, ...rest }) {
+function PrivateRoute({ component, isAdmin, ...rest }) {
   const user = localStorage.getItem('codeburger:userData')
 
   if (!user) {
@@ -12,14 +12,16 @@ function PrivateRoute({ component: Component, isAdmin, ...rest }) {
     return <Navigate to="/" />
   }
 
-  // Renderiza o componente se as condições forem atendidas
-  return <Route {...rest} element={<Component />} />
-}
-
-PrivateRoute.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.element])
-    .isRequired,
-  isAdmin: PropTypes.bool
+  return (
+    <>
+      <Outlet {...rest} element={component} />
+    </>
+  )
 }
 
 export default PrivateRoute
+
+PrivateRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+  isAdmin: PropTypes.bool
+}

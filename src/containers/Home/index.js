@@ -1,11 +1,15 @@
 import React from 'react'
 
+import HomeLogo from '../../assets/loginBackground.jpg'
+import { Container, HomeImg } from './styles'
+import CategoryCarousel from '../../components/CategoryCarousel'
+
 function Home() {
   return (
-    <div>
-      <h2>Bem-vindo à Página Inicial</h2>
-      <p>Esta é a página inicial do seu aplicativo.</p>
-    </div>
+    <Container>
+      <HomeImg src={HomeLogo} alt="logo home" />
+      <CategoryCarousel />
+    </Container>
   )
 }
 
