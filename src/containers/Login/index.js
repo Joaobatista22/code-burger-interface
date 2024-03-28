@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
@@ -22,6 +22,7 @@ import {
 } from './styles'
 
 function Login() {
+  const navigate = useNavigate()
   const { putUserData } = useUser()
 
   const schema = yup.object().shape({
@@ -53,6 +54,9 @@ function Login() {
       putUserData(data)
       toast.success('Login realizado com sucesso!')
       // Redireciona para a página principal do site após o login ser bem sucedido
+      setTimeout(() => {
+        navigate('/')
+      }, 1000)
     } catch (error) {
       toast.error('Erro no login, verifique seus dados!')
       console.error('Erro ao fazer login:', error)
