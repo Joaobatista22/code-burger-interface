@@ -16,7 +16,7 @@ function CategoryCarousel() {
   }, [])
   return (
     <Container>
-      <CategoryImg src={CategoryText} alt="logo category" />
+      <CategoryImg src={CategoryText} alt="logocategory" />
       <Carousel itemsToShow={4}>
         {categories.map &&
           categories.map(category => (
