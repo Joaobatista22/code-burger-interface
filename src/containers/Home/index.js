@@ -8,6 +8,9 @@ function Home() {
   return (
     <Container>
       <HomeImg src={HomeLogo} alt="logoHome" />
+
+      <HomeImg src={HomeLogo} alt="logohome" />
+
       <CategoryCarousel />
     </Container>
   )
