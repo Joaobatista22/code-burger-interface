@@ -7,7 +7,7 @@ import CategoryCarousel from '../../components/CategoryCarousel'
 function Home() {
   return (
     <Container>
-      <HomeImg src={HomeLogo} alt="logo home" />
+      <HomeImg src={HomeLogo} alt="logoHome" />
       <CategoryCarousel />
     </Container>
   )
