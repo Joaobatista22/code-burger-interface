@@ -1,6 +1,6 @@
 import React from 'react'
 
-import HomeLogo from '../../assets/loginBackground.jpg'
+import HomeLogo from '../../assets/loginBackgrond.jpg'
 import { Container, HomeImg } from './styles'
 import CategoryCarousel from '../../components/CategoryCarousel'
 
