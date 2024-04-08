@@ -3,7 +3,7 @@ import Carousel from 'react-elastic-carousel'
 
 import CategoryText from '../../assets/categories.png'
 import api from '../../services/api'
-import { Container, CategoryImg } from './styles'
+import { Container, CategoryImg, ContainerItems, Image, Button } from './styles'
 
 function CategoryCarousel() {
   const [categories, setCategories] = useState([])
@@ -14,16 +14,28 @@ function CategoryCarousel() {
     }
     loadCategories()
   }, [])
+
+  const breackPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 400, itemsToShow: 2 },
+    { width: 600, itemsToShow: 3 },
+    { width: 900, itemsToShow: 4 },
+    { width: 1300, itemsToShow: 5 }
+  ]
   return (
     <Container>
       <CategoryImg src={CategoryText} alt="logocategory" />
-      <Carousel itemsToShow={4}>
-        {categories.map &&
+      <Carousel
+        itemsToShow={5}
+        style={{ width: '90%' }}
+        breakPoints={breackPoints}
+      >
+        {categories &&
           categories.map(category => (
-            <div key={category.id}>
-              <img src={category.url} alt="foto categorias" />
-              <button>{category.name}</button>
-            </div>
+            <ContainerItems key={category.id}>
+              <Image src={category.url} alt="foto categorias" />
+              <Button>{category.name}</Button>
+            </ContainerItems>
           ))}
       </Carousel>
     </Container>
