@@ -9,10 +9,10 @@ import {
   ContainerProducts
 } from './styles'
 import api from '../../services/api'
-import CardProduct from '../../components/CardProducts'
+import { CardProduct } from '../../components'
 import formatCurrency from '../../utils/formatCurrency'
 
-function Products() {
+export function Products() {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
@@ -75,5 +75,3 @@ function Products() {
     </Container>
   )
 }
-
-export default Products
