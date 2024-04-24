@@ -59,7 +59,6 @@ export function Login() {
       }, 1000)
     } catch (error) {
       toast.error('Erro no login, verifique seus dados!')
-      console.error('Erro ao fazer login:', error)
     }
   }
 
