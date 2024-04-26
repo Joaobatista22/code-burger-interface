@@ -38,11 +38,11 @@ export function Header() {
         </PageLink>
       </ContainerLeft>
       <ContainerRight>
-        <PageLink>
+        <PageLink onClick={() => handleLinkClick('/carrinho')}>
           <img src={CartImg} alt="carrinho" />
         </PageLink>
         <Line></Line>
-        <PageLink>
+        <PageLink onClick={() => handleLinkClick('/perfil')}>
           <img src={PersonImg} alt="person" />
         </PageLink>
         <ContainerTax>

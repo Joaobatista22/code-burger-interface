@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Outlet, Navigate } from 'react-router-dom'
 
+import Header from '../components/Header'
+
 function PrivateRoute({ component, isAdmin, ...rest }) {
   const user = localStorage.getItem('codeburger:userData')
 
@@ -14,6 +16,7 @@ function PrivateRoute({ component, isAdmin, ...rest }) {
 
   return (
     <>
+      <Header />
       <Outlet {...rest} element={component} />
     </>
   )
