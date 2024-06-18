@@ -16,7 +16,7 @@ root.render(
       <Routes />
     </AppProvider>
 
-    <ToastContainer autoClose={3000} />
+    <ToastContainer autoClose={1000} />
     <GlobalStyles />
   </>
 )

@@ -16,7 +16,7 @@ function PrivateRoute({ component, isAdmin, ...rest }) {
 
   return (
     <>
-      <Header />
+      {!isAdmin && <Header />}
       <Outlet {...rest} element={component} />
     </>
   )

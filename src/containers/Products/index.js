@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import ProductsLogo from '../../assets/ProductsCap.svg'
 import {
@@ -17,6 +18,14 @@ export function Products() {
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
   const [activeCategories, setActiveCategories] = useState(0)
+  const { state } = useLocation()
+
+  useEffect(() => {
+    if (state?.categoryId) {
+      setActiveCategories(state.categoryId)
+    }
+  }, [state?.categoryId])
+
   useEffect(() => {
     async function loadCategories() {
       const { data } = await api.get('categories')

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
+import { useUser } from '../../hooks/UserContext'
 import PersonImg from '../../assets/person.svg'
 import CartImg from '../../assets/cart.svg'
 import {
@@ -17,10 +18,15 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const { logout, userData } = useUser()
+
   const handleLinkClick = path => {
     navigate(path)
   }
-
+  const logoutUser = () => {
+    logout()
+    navigate('/login')
+  }
   return (
     <Container>
       <ContainerLeft>
@@ -46,8 +52,8 @@ export function Header() {
           <img src={PersonImg} alt="person" />
         </PageLink>
         <ContainerTax>
-          <p>Olá João</p>
-          <PageLinkExit>Sair</PageLinkExit>
+          <p>Olá, {userData.name}</p>
+          <PageLinkExit onClick={logoutUser}>Sair</PageLinkExit>
         </ContainerTax>
       </ContainerRight>
     </Container>

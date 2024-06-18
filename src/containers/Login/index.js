@@ -55,7 +55,11 @@ export function Login() {
       toast.success('Login realizado com sucesso!')
       // Redireciona para a página principal do site após o login ser bem sucedido
       setTimeout(() => {
-        navigate('/')
+        if (data.admin) {
+          navigate('/pedidos')
+        } else {
+          navigate('/')
+        }
       }, 1000)
     } catch (error) {
       toast.error('Erro no login, verifique seus dados!')
